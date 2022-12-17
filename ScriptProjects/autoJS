@@ -1,8 +1,0 @@
-Auto = function(marke, kennzeichen){
-    this.marke = marke;
-    this.kennzeichen = kennzeichen;
-    this.setzeFarbe = function(farbe){
-      this.farbwert = farbe;
-      return this.farbwert;
-      }
-}
