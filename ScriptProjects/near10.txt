@@ -1,0 +1,24 @@
+document.addEventListener("calculate", function f(e){
+
+let a = e.detail.input_a; // as Number
+let b = e.detail.input_b; // as Number
+
+let abstandA = Math.abs(10-a);
+let abstandB = Math.abs(10-b);
+let loesung = 0;
+
+if(abstandA <= abstandB){
+   loesung = a;
+
+} else{
+   loesung = b;
+}
+
+let p = document.createElement("p");
+
+p.setAttribute("id","solution");
+p.innerHTML = loesung;
+
+document.body.appendChild(p);
+
+});
