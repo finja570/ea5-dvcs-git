@@ -1,0 +1,280 @@
+KW 14 Aufgabe 1
+
+#use strict;
+#use warnings;
+
+open(my $datei, "ue1.txt");
+$wort = <STDIN>;
+chomp($wort);
+$wort =~ s/^\s+|\s+$//g;
+$anzahl = 0;
+
+while(<$datei>){
+   # chomp("§_");
+    my @worteZeile = split(/ /, "$_" );
+    foreach my $word (@worteZeile){
+
+        if( $word eq $wort){
+            $anzahl+=1;
+        }
+    }
+}
+print $anzahl;
+close $datei;
+
+
+KW 14 Aufgabe 2
+
+open(my $datei, "ue1.txt");
+%woerter = ();
+
+while(<$datei>){
+
+    my @worteZeile = split(/ /, "$_" );
+
+    foreach my $word (@worteZeile){
+
+        $word =~ s/^\s+|\s+$//g;
+        $word =~ s/\.|,|:|;|'//g;
+        $word =~ s/\(//g;
+        $word =~ s/\)//g;
+
+        if(exists($woerter {"$word"})){
+
+            $anzahl = $woerter{"$word"};
+            $anzahl++;
+            $woerter{"$word"} = "$anzahl";
+
+        } else{
+
+            $woerter{"$word"} = "1";
+        }
+    }
+}
+
+
+foreach my $wort(keys(%woerter)){
+    print "$wort : $woerter{$wort} \n";
+}
+
+close $datei;
+
+KW 15 Miniübung
+my $input=<STDIN>;
+$input  =~ s/^\s+|\s+$//g;
+
+if($input =~ /.[@][a-zA-Z]/){
+    print "Ja";
+} else{
+    print "Nein";
+}
+
+KW 15 Aufgabe 1
+
+my $input=<STDIN>;
+$input  =~ s/^\s+|\s+$//g;
+
+if( $input =~ /ll/){
+    print "Ja";
+} else{
+    print "Nein";
+}
+
+KW 15 Aufgabe 2
+
+my $input=<STDIN>;
+$input  =~ s/^\s+|\s+$//g;
+
+if($input =~ /[a-zA-Z][0-9][a-zA-Z]/){
+    print "Ja";
+} else {
+    print "Nein";
+}
+
+
+KW 16 Aufgabe 1
+
+my $input=<STDIN>;
+$input  =~ s/^\s+|\s+$//g;
+
+if($input =~ /[a|e|i|o|u|A|E|I|O|U]{2}/){
+
+    print "Ja";
+
+} else{
+
+    print "Nein";
+}
+
+KW 16 Aufgabe 2
+
+use strict;
+use warnings;
+
+my $input=<STDIN>;
+$input  =~ s/^\s+|\s+$//g;
+if($input =~ /\.([a-z]+)$/){  # ausführlicher: $input =~ /.*[A-Za-z].*\.([A-Za-z]+)$/)
+
+    print "$1";
+
+}else{
+
+    print $input;
+}
+
+KW 16 Aufgabe 3
+use strict;
+use warnings;
+
+my $input=<STDIN>;
+$input  =~ s/^\s+|\s+$//g;
+
+if($input =~ /^([+-]?)((\d+)(\.?)(\d*)([-+]?)(e?)([+-]?)(\d*))$/){
+
+    print "Ja";
+
+} else{
+    print "Nein";
+}
+
+KW 17 Aufgabe 1
+my $path=<STDIN>;
+$path  =~ s/^\s+|\s+$//g;
+
+open(DATEI, "$path");
+%ergebnis = ();
+@zeilen = <DATEI>;
+close DATEI;
+
+
+foreach $zeile(@zeilen){
+
+    if($zeile =~ /<td>(\d+)<\/td><td>([A-Za-z]+)<\/td><td>([A-Za-z]+)<\/td>/){
+        $ergebnis{"$1"} = "$2, $3";
+
+    }
+}
+
+foreach my $zahl(sort{$a <=> $b} keys%ergebnis){
+    print "$zahl, $ergebnis{$zahl}";
+    print "\n";
+}
+
+KW 17 Aufgabe 2
+
+
+my $zahlen=<STDIN>;
+$zahlen =~ s/^\s+|\s+$//g;
+@zahlenMethode = split(/,/ , $zahlen);
+
+sub range{
+    my $zahl1 = $_[0];
+    my $zahl2 = $_[1];
+
+    if($zahl1 - $zahl2 == 1){
+        print my @ergebnis = ();
+
+    } else {
+        if($zahl1 < $zahl2){
+            my @ergebnis = ($zahl1);
+            $range = $zahl2 - $zahl1;
+            for(my $i = 1; $i < $range; $i++){
+                $zahl1++;
+                push(@ergebnis, $zahl1);
+            }
+
+        push(@ergebnis,$zahl2);
+
+
+        print @ergebnis;
+
+        } else {
+
+        my @ergebnis = ($zahl2);
+            $range = $zahl1 - $zahl2;
+            for(my $i = 1; $i < $range; $i++){
+                $zahl2++;
+                push(@ergebnis, $zahl2);
+            }
+
+        push(@ergebnis,$zahl1);
+
+        print @ergebnis;
+
+        }
+
+    }
+}
+
+range($zahlenMethode[0],$zahlenMethode[1]);
+
+KW 21 Übungsaufgabe1
+
+my $input=<STDIN>;
+$input  =~ s/^\s+|\s+$//g;
+
+
+sub getDataFromAnswer{
+    my $suche = $_[0];
+
+    open(DATEI, "api_response.txt");
+    @zeilen = <DATEI>;
+    close DATEI;
+
+    $ergebnis = "$suche not found";
+
+    foreach $zeile (@zeilen){
+        if($zeile =~ /([A-Za-z]+)[=](.+)/){
+
+            if($1 eq $suche){
+                $ergebnis = $2;
+            }
+        }
+    }
+
+    return $ergebnis;
+
+}
+
+print getDataFromAnswer($input);
+
+
+
+Kw 21 Übungsaufgabe2
+
+%contents = ("1" => "laktosefrei",
+            "2" => "koffeeinfrei",
+            "4" => "diätetisches Lebensmittel",
+            "8" => "glutenfrei",
+            "16" => "fruktosefrei",
+            "32" => "BIO-Lebensmittel nach EU-Ökoverordnung",
+            "64" => "fair gehandeltes Produkt nach FAIRTRADE™-Standard",
+            "128" => "vegetarisch",
+            "256" => "vegan",
+            "512" => "Warnung vor Mikroplastik",
+            "1024" => "Warnung vor Mineralöl",
+            "2048" => "Warnung vor Nikotin");
+
+
+sub getListFromCode{
+
+    $eingabe = $_[0];
+    @zahlen = split(/,/ , $eingabe);
+
+    return @zahlen;
+}
+
+#my $input=<STDIN>;
+#$input  =~ s/^\s+|\s+$//g;
+$input = "1,2,16";
+
+@contentsNumbers = getListFromCode($input);
+
+$ausgabe = "";
+foreach $zahl(@contentsNumbers){
+    $content = $contents{"$zahl"};
+    $ausgabe = "$ausgabe $content ";
+}
+
+$ausgabe  =~ s/^\s+|\s+$//g;
+print $ausgabe;
