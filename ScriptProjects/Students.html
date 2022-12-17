@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<script type="application/javascript">
+
+	function init(){
+		document.daten.name.value = "";
+	}
+
+	let studenten = [];
+	let studiengaenge = [];
+
+	Student = function(na, ma, email, sg){
+		this.na = na;
+		this.ma = ma;
+		this.email = email;
+		this.sg = sg;
+		this.wechseln = function(studga){
+			this.sg = studga;
+		}
+	}
+
+	Studiengang = function(naSt, zeit, hochNa, ab){
+		this.naSt = naSt;
+		this.zeit = zeit;
+		this.hochNa = hochNa;
+		this.ab = ab;
+	}
+
+
+	function erstellen(){
+
+		var name = document.daten.name.value;
+		var matrikel = document.daten.matrikelnummer.value;
+		var mail = document.daten.email.value;
+		var studName = document.daten.studiengangName.value;
+		var regelZeit = document.daten.regelstudienzeit.value;
+		var hochName = document.daten.hochschulname.value;
+		var abschluss = document.daten.abschluss.value;
+
+		var studGangVorhanden = false;
+
+		for(var i = 0; i < studiengaenge.length; i++){
+			if(studiengaenge[i].naSt == studName){
+				studGangVorhanden = true;
+				break;
+			}
+		}
+
+		if(studGangVorhanden == false){
+			studiengang = new Studiengang(studName, regelZeit, hochName, abschluss);
+			studiengaenge.push(studiengang);
+		}
+
+		var studVorhanden = false;
+
+		for(var i = 0; i < studenten.length; i++){
+			if(studenten[i].ma == matrikel){
+				studVorhanden = true;
+				break;
+			}
+		}
+
+		if(studVorhanden == false){
+			student = new Student(name, matrikel, mail, studiengang);
+			studenten.push(student);
+		}
+
+		alert("Erflogreich abgeschickt!");
+
+	}
+
+	function anzeigen(){
+		console.log(studenten);
+
+	}
+
+	function studiengangWechseln(){
+
+		var matrikel = document.daten.matrikelnummer.value;
+		var studName = document.daten.studiengangName.value;
+		var regelZeit = document.daten.regelstudienzeit.value;
+		var hochName = document.daten.hochschulname.value;
+		var abschluss = document.daten.abschluss.value;
+
+		let stGavorhanden = false;
+		let studentVorhanden = false;
+
+		for(var i = 0; i < studenten.length; i++){
+				if(studenten[i].ma == matrikel){
+
+					for(var j = 0; j < studiengaenge.length; j++){
+						if(studiengaenge[j].naSt == studName){
+							stGavorhanden = true;
+							studenten[i].wechseln(studName);
+							alert("Studiengang erfolgreich gewechselt.");
+							break;
+						}
+					}
+
+					if(stGavorhanden == false){
+						let studiengang = new Studiengang(studName, regelZeit, hochName, abschluss)
+						studenten[i].wechseln(studiengang);
+						studiengaenge.push(studiengang);
+						alert("Studiengang erfolgreich gewechselt.");
+						break;
+					}
+
+
+				}
+
+		alert("Die Marikelnummer existiert noch nicht.");
+
+		}
+
+
+	}
+
+
+
+
+
+	</script>
+</head>
+
+<body onload ="init()">
+		<form name = "daten">
+
+		<label for="name"> Name:</label>
+		<input type ="text" name = "name"> <br><br>
+
+		<label for="matrikelnummer"> Matrikelnummer:</label>
+		<input type ="text" name = "matrikelnummer"> <br><br>
+
+		<label for="email"> Email:</label>
+		<input type ="text" name = "email"> <br><br>
+
+		<label for="studiengangName"> Name Studiengang:</label>
+		<input type ="text" name = "studiengangName"> <br><br>
+
+		<label for="regelstudienzeit"> Regelstudienzeit:</label>
+		<input type ="text" name = "regelstudienzeit"> <br><br>
+
+		<label for="hochschulname"> Hochschule:</label>
+		<input type ="text" name = "hochschulname"> <br><br>
+
+		<label for="abschluss"> Abschluss:</label>
+		<input type ="text" name = "abschluss"> <br> <br>
+
+
+		<input type ="button" value = "Absenden" onclick="erstellen()"> <br> <br>
+		<input type ="button" value = "Anzeigen" onclick="anzeigen()"> <br> <br>
+		<input type ="button" value = "Wechseln" onclick="studiengangWechseln()">
+
+
+</body>
+</html>
