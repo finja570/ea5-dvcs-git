@@ -1,0 +1,26 @@
+function blackjack(a,b){
+if(typeof a == "number" && typeof b == "number"){
+
+  if(a>21 && b>21){
+    return 0;
+    }
+
+  if(a<= 21){
+    var abstandA = 21-a;
+  }else{
+    var abstandA = 21;
+  }
+
+  if(b<=21){
+    var abstandB = 21-b;
+  }else{
+    var abstandB = 21;
+  }
+
+  if(abstandA <= abstandB){
+    	return a;
+  } else{
+    return b;
+  }
+  }
+  }
