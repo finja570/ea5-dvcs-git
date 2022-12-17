@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aufgabe 3</title>
+</head>
+<body onload="addListener()">
+
+<!--
+Bei einem Klick auf den Button "Primzahlen berechnen" soll die Funktion prim() aufgerufen werden.
+Diese soll die ersten 20 Primzahlen berechnenn und in das Element mit der id "anzeige" schreiben.
+Bei einem erneuten Klick soll erneut berechnet werden und das Element mit id "anzeige" geleert und
+anschließend neu beschrieben werden.
+-->
+<script>
+
+    function addListener(){
+      let button = document.getElementById("button");
+      button.addEventListener("click", prim);
+    }
+
+    function prim(){
+      let div = document.getElementById("anzeige");
+      div.innerHTML = "";
+      let primzahlen = new Array();
+
+      for(let i = 2; primzahlen.length < 20; i++){
+        let primGefunden = true;
+
+        for(let j = 2; j<i; j++){
+          if(i%j == 0){
+             primGefunden = false;
+          }
+        }
+
+        if (primGefunden == true){
+          primzahlen.push(i);
+        }
+      }
+
+      div.innerHTML = primzahlen;
+    }
+
+</script>
+<button id="button">Primzahlen berechnen</button>
+<div id="anzeige"></div>
+
+</body>
+</html>
