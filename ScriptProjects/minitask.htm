@@ -1,0 +1,26 @@
+<html>
+<head> 
+	<meta charset="UTF-8">
+	<script type="application/javascript">
+		function init(){
+			document.test.userinput.value = "";
+		}
+		function check(){
+			var input = document.test.userinput.value;
+			if( input =="banane" || input =="apfel"){
+				alert( "true" );
+			}else{
+				alert( "false" );
+			}
+		}
+	</script>
+</head>
+
+<body onload="init()">
+	<form name="test">
+	<input type="text" name="userinput" size="5">
+	<input type="button" value="Submit"
+		onclick="check()">
+	</form>
+</body>
+</html>	
