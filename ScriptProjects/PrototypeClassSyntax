@@ -1,0 +1,55 @@
+prototype-Syntax
+
+Shape = function(point){
+this.position = point;
+this.move = function(point){
+     this.position = point;
+     return this.position;
+
+     }
+}
+
+Point = function(x,y){
+this.x = x;
+this.y = y;
+}
+
+Circle = function(point,radius){
+Shape.call(this, point);
+this.radius = radius;
+}
+
+Circle.prototype = new Shape();
+
+
+class-syntax
+
+class Shape{
+
+constructor(point){
+   this.position = point;
+}
+
+move(point){
+   this.position = point;
+   return this.position;
+}
+}
+
+
+class Point{
+
+constructor(x,y){
+   this.x = x;
+   this.y = y;
+}
+}
+
+
+class Circle extends Shape{
+
+constructor(point,radius){
+   super(point);
+   this.radius = radius;
+}
+}
